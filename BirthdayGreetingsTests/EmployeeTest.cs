@@ -7,7 +7,7 @@ namespace BirthdayGreetingsTests
 	[TestFixture ()]
 	public class EmployeeTest
 	{
-		[Test ()]
+		[Test]
 		public void TestBirthday()
         {
             Employee employee = new("foo", "bar", "1990/01/31", "a@b.c");
@@ -18,7 +18,7 @@ namespace BirthdayGreetingsTests
             });
         }
 
-        [Test ()]
+        [Test]
 		public void Equality()
         {
             Employee employee = new("First", "Last", "1999/09/01", "first@last.com");
