@@ -4,35 +4,35 @@ using BirthdayGreetings;
 
 namespace BirthdayGreetingsTests
 {
-	[TestFixture ()]
-	public class EmployeeTest
-	{
-		[Test]
-		public void TestBirthday()
-        {
-            Employee employee = new("foo", "bar", "1990/01/31", "a@b.c");
-            Assert.Multiple(() =>
-            {
-                Assert.That(employee.IsBirthday(new XDate("2008/01/30")), Is.False, "not his birthday");
-                Assert.That(employee.IsBirthday(new XDate("2008/01/31")), Is.True, "his birthday");
-            });
-        }
-
-        [Test]
-		public void Equality()
-        {
-            Employee employee = new("First", "Last", "1999/09/01", "first@last.com");
-			Employee same = new("First", "Last", "1999/09/01", "first@last.com");
-			Employee differentEmail = new("First", "Last", "1999/09/01", "boom@boom.com");
-
-            Assert.Multiple(() =>
-            {
-                // Assert.That(null, Is.Not.EqualTo(employee));
-                // Assert.AreNotEqual (employee, "a string");
-                Assert.That(employee, Is.EqualTo(employee));
-                Assert.That(same, Is.EqualTo(employee));
-                Assert.That(differentEmail, Is.Not.EqualTo(employee));
-            });
-        }
+  [TestFixture()]
+  public class EmployeeTest
+  {
+    [Test]
+    public void TestBirthday()
+    {
+      Employee employee = new("foo", "bar", "1990/01/31", "a@b.c");
+      Assert.Multiple(() =>
+      {
+        Assert.That(employee.IsBirthday(new XDate("2008/01/30")), Is.False, "not his birthday");
+        Assert.That(employee.IsBirthday(new XDate("2008/01/31")), Is.True, "his birthday");
+      });
     }
+
+    [Test]
+    public void Equality()
+    {
+      Employee employee = new("First", "Last", "1999/09/01", "first@last.com");
+      Employee same = new("First", "Last", "1999/09/01", "first@last.com");
+      Employee differentEmail = new("First", "Last", "1999/09/01", "boom@boom.com");
+
+      Assert.Multiple(() =>
+      {
+        // Assert.That(null, Is.Not.EqualTo(employee));
+        // Assert.AreNotEqual (employee, "a string");
+        Assert.That(employee, Is.EqualTo(employee));
+        Assert.That(same, Is.EqualTo(employee));
+        Assert.That(differentEmail, Is.Not.EqualTo(employee));
+      });
+    }
+  }
 }
