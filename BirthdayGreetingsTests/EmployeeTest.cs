@@ -4,7 +4,7 @@ using BirthdayGreetings;
 
 namespace BirthdayGreetingsTests
 {
-  [TestFixture()]
+  [TestFixture]
   public class EmployeeTest
   {
     [Test]

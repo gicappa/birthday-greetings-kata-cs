@@ -38,7 +38,7 @@ public class XDate
     return day;
   }
 
-  public override bool Equals(Object obj)
+  public override bool Equals(Object? obj)
   {
     if (obj is not XDate other)
       return false;

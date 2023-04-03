@@ -22,10 +22,7 @@ namespace BirthdayGreetingsTests
     }
 
     [TearDown]
-    public void TearDown()
-    {
-      _smtpServer?.Stop();
-    }
+    public void TearDown() => _smtpServer?.Stop();
 
     [Test]
     public void WillSendGreetings_WhenItsSomebodysBirthday()
