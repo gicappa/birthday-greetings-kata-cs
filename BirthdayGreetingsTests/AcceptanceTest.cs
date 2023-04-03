@@ -7,16 +7,16 @@ namespace BirthdayGreetingsTests
 	[TestFixture]
 	public class AcceptanceTest
 	{
-		private BirthdayService? service;
+		private BirthdayService? _service;
         private string? _filePath;
 
-        private SimpleSmtpServer? smtpServer;
+        private SimpleSmtpServer? _smtpServer;
 
 		[SetUp]
 		public void SetUp()
 		{
-			smtpServer = SimpleSmtpServer.Start();
-			service = new BirthdayService();
+			_smtpServer = SimpleSmtpServer.Start();
+			_service = new BirthdayService();
             _filePath = Path.Combine(TestContext.CurrentContext.TestDirectory)
 				+ "../../../../../BirthdayGreetings/employee_data.txt";
         }
@@ -24,17 +24,17 @@ namespace BirthdayGreetingsTests
 		[TearDown]
 		public void TearDown()
 		{
-            smtpServer.Stop();
+            _smtpServer?.Stop();
 		}
 
 		[Test]
 		public void WillSendGreetings_WhenItsSomebodysBirthday()
         {
-            service?.SendGreetings(_filePath, new XDate("2008/10/08"), "localhost", smtpServer.Configuration.Port);
+            _service?.SendGreetings(_filePath!, new XDate("2008/10/08"), "localhost", _smtpServer.Configuration.Port);
 
-			Assert.That(smtpServer?.ReceivedEmailCount, Is.EqualTo(1), "message not sent?");
-			var message = smtpServer?.ReceivedEmail [0];
-			Assert.That(message.MessageParts[0].BodyData, Is.EqualTo("Happy Birthday, dear John!"));
+			Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(1), "message not sent?");
+			var message = _smtpServer?.ReceivedEmail[0];
+			Assert.That(message!.MessageParts[0].BodyData, Is.EqualTo("Happy Birthday, dear John!"));
             Assert.Multiple(() =>
             {
                 Assert.That(message.Headers.Get("subject"), Is.EqualTo("Happy Birthday!"));
@@ -46,8 +46,8 @@ namespace BirthdayGreetingsTests
         [Test]
 		public void WillNotSendEmails_WhenNobodysBirthday()
 		{
-			service?.SendGreetings(_filePath, new XDate("2008/01/01"), "localhost", smtpServer.Configuration.Port);
-			Assert.That(smtpServer?.ReceivedEmailCount, Is.EqualTo(0), "what? messages?");
+			_service?.SendGreetings(_filePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
+			Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(0), "what? messages?");
 		}
 	}
 }
