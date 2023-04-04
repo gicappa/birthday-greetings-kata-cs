@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using BirthdayGreetings;
 
-namespace BirthdayGreetingsTests;
+namespace BirthdayGreetings.Tests;
 
 [TestFixture]
 public class XDateTest

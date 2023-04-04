@@ -2,7 +2,7 @@
 using BirthdayGreetings;
 using netDumbster.smtp;
 
-namespace BirthdayGreetingsTests;
+namespace BirthdayGreetings.Tests;
 
 [TestFixture]
 public class AcceptanceTest

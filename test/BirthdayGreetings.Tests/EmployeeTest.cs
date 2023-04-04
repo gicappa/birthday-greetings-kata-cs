@@ -2,7 +2,7 @@
 using System;
 using BirthdayGreetings;
 
-namespace BirthdayGreetingsTests;
+namespace BirthdayGreetings.Tests;
 
 [TestFixture]
 public class EmployeeTest

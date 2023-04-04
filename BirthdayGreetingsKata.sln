@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings", "src\BirthdayGreetings\BirthdayGreetings.csproj", "{714487CC-B517-44C3-BDA0-D62280C6B265}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetingsTests", "test\BirthdayGreetingsTests\BirthdayGreetingsTests.csproj", "{2AE841D9-750E-4C22-83B4-0F2956A12D40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayGreetings.Tests", "test\BirthdayGreetings.Tests\BirthdayGreetings.Tests.csproj", "{2AE841D9-750E-4C22-83B4-0F2956A12D40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
