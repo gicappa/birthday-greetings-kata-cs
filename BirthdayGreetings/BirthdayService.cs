@@ -15,20 +15,22 @@ namespace BirthdayGreetings
         Employee employee = new(employeeData[1].Trim(), employeeData[0].Trim(), employeeData[2].Trim(), employeeData[3].Trim());
         if (employee.IsBirthday(date))
         {
-          var recipient = employee.email;
-          var body = $"Happy Birthday, dear {employee.firstName}";
-          const string subject = "Happy Birthday!";
-          SendMessage(smtpHost, smtpPort, "sender@here.com", subject, body, recipient);
+          SendMessage(
+            smtpHost: smtpHost, 
+            smtpPort:smtpPort,
+            from: "sender@here.com", 
+            subject: "Happy Birthday!", 
+            body: $"Happy Birthday, dear {employee.firstName}", 
+            recipient: employee.email);
         }
       }
     }
 
-    private void SendMessage(string smtpHost, int smtpPort, string from, string subject, string body, string recipient)
+    private static void SendMessage(string smtpHost, int smtpPort, string from, string subject, string body, string recipient)
     {
-      var client = new SmtpClient(smtpHost, smtpPort);
+      using var client = new SmtpClient(smtpHost, smtpPort);
       var message = new MailMessage(from, recipient, subject, body);
       client.Send(message);
-      client.Dispose();
     }
   }
 }
