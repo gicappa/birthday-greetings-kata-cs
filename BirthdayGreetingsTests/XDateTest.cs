@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
 using BirthdayGreetings;
 
 namespace BirthdayGreetingsTests
@@ -13,8 +12,8 @@ namespace BirthdayGreetingsTests
       XDate date = new("1789/01/24");
       Assert.Multiple(() =>
       {
-        Assert.That(date.GetDay(), Is.EqualTo(24));
-        Assert.That(date.GetMonth(), Is.EqualTo(1));
+        Assert.That(date.Day, Is.EqualTo(24));
+        Assert.That(date.Month, Is.EqualTo(1));
       });
     }
 
@@ -42,8 +41,6 @@ namespace BirthdayGreetingsTests
       Assert.Multiple(() =>
       {
         Assert.That(date, Is.Not.EqualTo(null));
-        // Assert.That(date, Is.Not.EqualTo(""));
-        Assert.That(date, Is.EqualTo(date));
         Assert.That(date, Is.EqualTo(same));
         Assert.That(date, Is.Not.EqualTo(different));
       });
@@ -55,8 +52,8 @@ namespace BirthdayGreetingsTests
       XDate date = new();
       Assert.Multiple(() =>
       {
-        Assert.That(date.GetDay(), Is.EqualTo(DateTime.Today.Day));
-        Assert.That(date.GetMonth(), Is.EqualTo(DateTime.Today.Month));
+        Assert.That(date.Day, Is.EqualTo(DateTime.Today.Day));
+        Assert.That(date.Month, Is.EqualTo(DateTime.Today.Month));
       });
     }
   }

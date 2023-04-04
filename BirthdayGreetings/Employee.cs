@@ -1,57 +1,44 @@
-﻿using System;
-
-namespace BirthdayGreetings
+﻿namespace BirthdayGreetings
 {
   public class Employee
   {
-    private readonly XDate birthDate;
-    private readonly String lastName;
-    private readonly String firstName;
-    private readonly String email;
+    private readonly XDate _birthDate;
+    private readonly string _lastName;
 
-    public Employee(String firstName, String lastName, String birthDate, String email)
+    public Employee(string firstName, string lastName, string birthDate, string email)
     {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.birthDate = new XDate(birthDate);
-      this.email = email;
+      FirstName = firstName;
+      _lastName = lastName;
+      _birthDate = new XDate(birthDate);
+      Email = email;
     }
 
     public bool IsBirthday(XDate today)
-    {
-      return today.IsSameDay(birthDate);
-    }
+      => _birthDate.IsSameDay(today);
 
-    public String GetEmail()
-    {
-      return email;
-    }
+    public string Email { get; }
 
-    public String GetFirstName()
-    {
-      return firstName;
-    }
+    public string FirstName { get; }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (obj is not Employee other)
         return false;
 
-      return this.birthDate.Equals(other.birthDate)
-          && this.firstName == other.firstName
-          && this.email == other.email
-          && this.birthDate.Equals(other.birthDate);
+      return _birthDate.Equals(other._birthDate)
+          && FirstName == other.FirstName
+          && Email == other.Email
+          && _birthDate.Equals(other._birthDate);
     }
 
     public override int GetHashCode()
     {
-      return email.GetHashCode();
+      return Email.GetHashCode();
     }
 
     public override string ToString()
     {
-      return string.Format("[Employee {0} {1} {2} {3}]", firstName, lastName, email, birthDate);
+      return $"[Employee {FirstName} {_lastName} {Email} {_birthDate}]";
     }
   }
 }
-

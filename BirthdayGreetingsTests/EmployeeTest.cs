@@ -27,9 +27,7 @@ namespace BirthdayGreetingsTests
 
       Assert.Multiple(() =>
       {
-        // Assert.That(null, Is.Not.EqualTo(employee));
-        // Assert.AreNotEqual (employee, "a string");
-        Assert.That(employee, Is.EqualTo(employee));
+        Assert.That(employee, Is.Not.Null);
         Assert.That(same, Is.EqualTo(employee));
         Assert.That(differentEmail, Is.Not.EqualTo(employee));
       });
