@@ -20,8 +20,8 @@ namespace BirthdayGreetings
             smtpPort:smtpPort,
             from: "sender@here.com", 
             subject: "Happy Birthday!", 
-            body: $"Happy Birthday, dear {employee.firstName}", 
-            recipient: employee.email);
+            body: $"Happy Birthday, dear {employee.FirstName}", 
+            recipient: employee.Email);
         }
       }
     }
