@@ -15,8 +15,8 @@ namespace BirthdayGreetings
         Employee employee = new(employeeData[1].Trim(), employeeData[0].Trim(), employeeData[2].Trim(), employeeData[3].Trim());
         if (employee.IsBirthday(date))
         {
-          var recipient = employee.Email;
-          var body = $"Happy Birthday, dear {employee.FirstName}";
+          var recipient = employee.email;
+          var body = $"Happy Birthday, dear {employee.firstName}";
           const string subject = "Happy Birthday!";
           SendMessage(smtpHost, smtpPort, "sender@here.com", subject, body, recipient);
         }
