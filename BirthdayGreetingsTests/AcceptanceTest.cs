@@ -7,8 +7,9 @@ namespace BirthdayGreetingsTests;
 [TestFixture]
 public class AcceptanceTest
 {
-  private BirthdayService? _service;
-  private string? _filePath;
+  private readonly string _filePath = Path.Combine(
+    TestContext.CurrentContext.TestDirectory,
+    "../../../../BirthdayGreetings/employee_data.txt");
 
   private SimpleSmtpServer? _smtpServer;
 
@@ -16,9 +17,6 @@ public class AcceptanceTest
   public void SetUp()
   {
     _smtpServer = SimpleSmtpServer.Start();
-    _service = new BirthdayService();
-    _filePath = Path.Combine(TestContext.CurrentContext.TestDirectory,
-      "../../../../BirthdayGreetings/employee_data.txt");
   }
 
   [TearDown]
@@ -27,7 +25,7 @@ public class AcceptanceTest
   [Test]
   public void WillSendGreetingsWhenItsSomebodysBirthday()
   {
-    _service?.SendGreetings(_filePath!, new XDate("2008/10/08"), "localhost", _smtpServer!.Configuration.Port);
+    BirthdayService.SendGreetings(_filePath!, new XDate("2008/10/08"), "localhost", _smtpServer!.Configuration.Port);
 
     Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(1), "message not sent?");
     var message = _smtpServer?.ReceivedEmail[0];
@@ -43,7 +41,7 @@ public class AcceptanceTest
   [Test]
   public void WillNotSendEmailsWhenNobodysBirthday()
   {
-    _service?.SendGreetings(_filePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
+    BirthdayService.SendGreetings(_filePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
     Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(0), "what? messages?");
   }
 }
