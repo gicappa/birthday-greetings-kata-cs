@@ -10,6 +10,7 @@ public class XDateTest
   public void Getters()
   {
     XDate date = new("1789/01/24");
+    
     Assert.Multiple(() =>
     {
       Assert.That(date.Day, Is.EqualTo(24));
@@ -24,6 +25,7 @@ public class XDateTest
     XDate sameDay = new("2001/01/24");
     XDate notSameDay = new("1789/01/25");
     XDate notSameMonth = new("1789/02/25");
+    
     Assert.Multiple(() =>
     {
       Assert.That(date.IsSameDay(sameDay), Is.True, "same");
@@ -50,6 +52,7 @@ public class XDateTest
   public void TodaysDate()
   {
     XDate date = new();
+    
     Assert.Multiple(() =>
     {
       Assert.That(date.Day, Is.EqualTo(DateTime.Today.Day));
