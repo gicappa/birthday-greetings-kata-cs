@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BirthdayGreetings\BirthdayGreetings.csproj" />
+    <ProjectReference Include="..\..\src\BirthdayGreetings\BirthdayGreetings.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ public class AcceptanceTest
 {
   private readonly string _filePath = Path.Combine(
     TestContext.CurrentContext.TestDirectory,
-    "../../../../BirthdayGreetings/employee_data.txt");
+    "../../../../../src/BirthdayGreetings/employee_data.txt");
 
   private SimpleSmtpServer? _smtpServer;
 
