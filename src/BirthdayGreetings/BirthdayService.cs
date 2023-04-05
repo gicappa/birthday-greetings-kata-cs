@@ -14,8 +14,8 @@ public class BirthdayService
   public static void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
   {
     StreamReader input = new(fileName);
-    var str = "";
-    str = input.ReadLine(); // skip header
+    string? str;
+    skipHeader(input);
     while ((str = input.ReadLine()) != null)
     {
       var employeeData = str.Split(new char[] { ',' }, 1000);
@@ -28,10 +28,15 @@ public class BirthdayService
           smtpPort: smtpPort,
           from: "sender@here.com",
           subject: "Happy Birthday!",
-          body: $"Happy Birthday, dear {employee.FirstName}",
+          body: $"Happy Birthday, dear {employee.FirstName}!",
           recipient: employee.Email);
       }
     }
+  }
+
+  private static void skipHeader(StreamReader input)
+  {
+    var str = input.ReadLine(); // skip header
   }
 
   /// <summary>
