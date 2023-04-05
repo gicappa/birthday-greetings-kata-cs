@@ -14,9 +14,8 @@ public class BirthdayService
   public static void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
   {
     StreamReader input = new(fileName);
-    string? str;
     skipHeader(input);
-    while ((str = input.ReadLine()) != null)
+    while (input.ReadLine() is { } str)
     {
       var employee = parseEmployee(str);
       if (employee.IsBirthday(date))
