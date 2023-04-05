@@ -15,9 +15,14 @@ public class BirthdayService
   {
     StreamReader input = new(fileName);
     skipHeader(input);
+    var employees = new List<Employee>();
     while (input.ReadLine() is { } str)
     {
-      var employee = parseEmployee(str);
+      employees.Add(parseEmployee(str));
+    }
+
+    foreach (var employee in employees)
+    {
       if (employee.IsBirthday(date))
       {
         SendMessage(
