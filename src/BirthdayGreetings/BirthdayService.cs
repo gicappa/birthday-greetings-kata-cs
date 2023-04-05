@@ -18,9 +18,7 @@ public class BirthdayService
     skipHeader(input);
     while ((str = input.ReadLine()) != null)
     {
-      var employeeData = str.Split(new char[] { ',' }, 1000);
-      Employee employee = new(employeeData[1].Trim(), employeeData[0].Trim(), employeeData[2].Trim(),
-        employeeData[3].Trim());
+      var employee = parseEmployee(str);
       if (employee.IsBirthday(date))
       {
         SendMessage(
@@ -32,6 +30,14 @@ public class BirthdayService
           recipient: employee.Email);
       }
     }
+  }
+
+  private static Employee parseEmployee(string str)
+  {
+    var employeeData = str.Split(new char[] { ',' }, 1000);
+    Employee employee = new(employeeData[1].Trim(), employeeData[0].Trim(), employeeData[2].Trim(),
+      employeeData[3].Trim());
+    return employee;
   }
 
   private static void skipHeader(StreamReader input)
