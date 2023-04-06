@@ -11,16 +11,16 @@ namespace BirthdayGreetings;
 /// </summary>
 public class BirthdayService
 {
-  public static void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
-  {
-    StreamReader input = new(fileName);
-    skipHeader(input);
-    var employees = new List<Employee>();
-    while (input.ReadLine() is { } str)
-    {
-      employees.Add(parseEmployee(str));
-    }
+  private readonly IEmployeesRepo _employeesRepo;
 
+  public BirthdayService(IEmployeesRepo employeesRepo)
+  {
+    _employeesRepo = employeesRepo;
+  }
+
+  public void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
+  {
+    var employees = _employeesRepo.FindAllEmployees();
     foreach (var employee in employees)
     {
       if (employee.IsBirthday(date))
@@ -42,11 +42,6 @@ public class BirthdayService
     Employee employee = new(employeeData[1].Trim(), employeeData[0].Trim(), employeeData[2].Trim(),
       employeeData[3].Trim());
     return employee;
-  }
-
-  private static void skipHeader(StreamReader input)
-  {
-    var str = input.ReadLine(); // skip header
   }
 
   /// <summary>
