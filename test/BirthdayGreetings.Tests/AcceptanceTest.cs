@@ -7,9 +7,7 @@ namespace BirthdayGreetings.Tests;
 [TestFixture]
 public class AcceptanceTest
 {
-  private readonly string _filePath = Path.Combine(
-    TestContext.CurrentContext.TestDirectory,
-    "../../../../../src/BirthdayGreetings/employee_data.txt");
+  private const string FilePath = "employee_data.txt";
 
   private SimpleSmtpServer? _smtpServer;
 
@@ -25,7 +23,7 @@ public class AcceptanceTest
   [Test]
   public void WillSendGreetingsWhenItsSomebodysBirthday()
   {
-    BirthdayService.SendGreetings(_filePath!, new XDate("2008/10/08"), "localhost", _smtpServer!.Configuration.Port);
+    BirthdayService.SendGreetings(FilePath!, new XDate("2008/10/08"), "localhost", _smtpServer!.Configuration.Port);
 
     Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(1), "message not sent?");
     var message = _smtpServer?.ReceivedEmail[0];
@@ -41,7 +39,7 @@ public class AcceptanceTest
   [Test]
   public void WillNotSendEmailsWhenNobodysBirthday()
   {
-    BirthdayService.SendGreetings(_filePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
+    BirthdayService.SendGreetings(FilePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
     Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(0), "what? messages?");
   }
 }
