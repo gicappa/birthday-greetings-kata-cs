@@ -35,15 +35,7 @@ public class BirthdayService
       }
     }
   }
-
-  private static Employee parseEmployee(string str)
-  {
-    var employeeData = str.Split(new char[] { ',' }, 1000);
-    Employee employee = new(employeeData[1].Trim(), employeeData[0].Trim(), employeeData[2].Trim(),
-      employeeData[3].Trim());
-    return employee;
-  }
-
+  
   /// <summary>
   /// Sends a message to a certain user using a
   /// specific smtp server.
