@@ -11,16 +11,18 @@ namespace BirthdayGreetings;
 /// </summary>
 public class BirthdayService
 {
-  public static void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
+  private readonly IEmployeesRepo _employeesRepo;
+
+  public BirthdayService(IEmployeesRepo employeesRepo)
   {
-    StreamReader input = new(fileName);
-    var str = "";
-    str = input.ReadLine(); // skip header
-    while ((str = input.ReadLine()) != null)
+    _employeesRepo = employeesRepo;
+  }
+
+  public void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
+  {
+    var employees = _employeesRepo.FindAllEmployees();
+    foreach (var employee in employees)
     {
-      var employeeData = str.Split(new char[] { ',' }, 1000);
-      Employee employee = new(employeeData[1].Trim(), employeeData[0].Trim(), employeeData[2].Trim(),
-        employeeData[3].Trim());
       if (employee.IsBirthday(date))
       {
         SendMessage(
@@ -28,12 +30,12 @@ public class BirthdayService
           smtpPort: smtpPort,
           from: "sender@here.com",
           subject: "Happy Birthday!",
-          body: $"Happy Birthday, dear {employee.FirstName}",
+          body: $"Happy Birthday, dear {employee.FirstName}!",
           recipient: employee.Email);
       }
     }
   }
-
+  
   /// <summary>
   /// Sends a message to a certain user using a
   /// specific smtp server.
