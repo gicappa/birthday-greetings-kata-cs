@@ -10,11 +10,15 @@ public class AcceptanceTest
   private const string FilePath = "employee_data.txt";
 
   private SimpleSmtpServer? _smtpServer;
+  private IEmployeesRepo _employeesRepo;
+  private BirthdayService _birthdayService;
 
   [SetUp]
   public void SetUp()
   {
     _smtpServer = SimpleSmtpServer.Start();
+    _employeesRepo = new CsvEmployeesRepo(FilePath);
+    _birthdayService = new BirthdayService(_employeesRepo);
   }
 
   [TearDown]
@@ -23,7 +27,7 @@ public class AcceptanceTest
   [Test]
   public void WillSendGreetingsWhenItsSomebodysBirthday()
   {
-    BirthdayService.SendGreetings(FilePath!, new XDate("2008/10/08"), "localhost", _smtpServer!.Configuration.Port);
+    _birthdayService.SendGreetings(FilePath!, new XDate("2008/10/08"), "localhost", _smtpServer!.Configuration.Port);
 
     Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(1), "message not sent?");
     var message = _smtpServer?.ReceivedEmail[0];
@@ -39,7 +43,7 @@ public class AcceptanceTest
   [Test]
   public void WillNotSendEmailsWhenNobodysBirthday()
   {
-    BirthdayService.SendGreetings(FilePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
+    _birthdayService.SendGreetings(FilePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
     Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(0), "what? messages?");
   }
 }
