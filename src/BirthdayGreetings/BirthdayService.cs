@@ -5,23 +5,22 @@ namespace BirthdayGreetings;
 internal class BirthdayService
 {
     private readonly IEmployeesRepo _employeesRepo;
+    private readonly SmtpClient _smtpClient;
 
-    internal BirthdayService(IEmployeesRepo employeesRepo)
+    internal BirthdayService(IEmployeesRepo employeesRepo, SmtpClient smtpClient)
     {
         _employeesRepo = employeesRepo;
+        _smtpClient = smtpClient;
     }
 
-    internal void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
+    internal void SendGreetings(XDate date)
     {
         var employees = _employeesRepo.FindAllEmployees();
         foreach (var employee in employees)
         {
             if (employee.IsBirthday(date))
             {
-                SendMessage(
-                    smtpHost: smtpHost,
-                    smtpPort: smtpPort,
-                    from: "sender@here.com",
+                SendMessage(from: "sender@here.com",
                     subject: "Happy Birthday!",
                     body: $"Happy Birthday, dear {employee.FirstName}!",
                     recipient: employee.Email);
@@ -29,11 +28,10 @@ internal class BirthdayService
         }
     }
 
-    private static void SendMessage(string smtpHost, int smtpPort, string from, string subject, string body,
+    private void SendMessage(string from, string subject, string body,
         string recipient)
     {
-        using var client = new SmtpClient(smtpHost, smtpPort);
         var message = new MailMessage(from, recipient, subject, body);
-        client.Send(message);
+        _smtpClient.Send(message);
     }
 }

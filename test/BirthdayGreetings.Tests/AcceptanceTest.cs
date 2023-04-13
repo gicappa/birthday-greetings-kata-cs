@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Net.Mail;
+using NUnit.Framework;
 using BirthdayGreetings;
 using netDumbster.smtp;
 
@@ -12,13 +13,15 @@ public class AcceptanceTest
     private SimpleSmtpServer? _smtpServer;
     private IEmployeesRepo _employeesRepo;
     private BirthdayService _birthdayService;
+    private SmtpClient _smtpClient;
 
     [SetUp]
     public void SetUp()
     {
         _smtpServer = SimpleSmtpServer.Start();
         _employeesRepo = new CsvEmployeesRepo(FilePath);
-        _birthdayService = new BirthdayService(_employeesRepo);
+        _smtpClient = new SmtpClient("localhost", _smtpServer!.Configuration.Port);
+        _birthdayService = new BirthdayService(_employeesRepo, _smtpClient);
     }
 
     [TearDown]
@@ -27,7 +30,7 @@ public class AcceptanceTest
     [Test]
     public void WillSendGreetingsWhenItsSomebodysBirthday()
     {
-        _birthdayService.SendGreetings(FilePath!, new XDate("2008/10/08"), "localhost", _smtpServer!.Configuration.Port);
+        _birthdayService.SendGreetings(new XDate("2008/10/08"));
 
         Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(1), "message not sent?");
         var message = _smtpServer?.ReceivedEmail[0];
@@ -43,7 +46,7 @@ public class AcceptanceTest
     [Test]
     public void WillNotSendEmailsWhenNobodysBirthday()
     {
-        _birthdayService.SendGreetings(FilePath!, new XDate("2008/01/01"), "localhost", _smtpServer!.Configuration.Port);
+        _birthdayService.SendGreetings(new XDate("2008/01/01"));
         Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(0), "what? messages?");
     }
 }
