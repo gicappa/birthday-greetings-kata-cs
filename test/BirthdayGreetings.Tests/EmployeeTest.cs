@@ -22,8 +22,8 @@ public class EmployeeTest
     public void Equality()
     {
         Employee employee = new("First", "Last", "1999/09/01", "first@last.com");
-        var same = employee with { Email = "first@last.com" };
-        var differentEmail = employee with { Email = "boom@boom.com" };
+        Employee same = new("First", "Last", "1999/09/01", "first@last.com");
+        Employee differentEmail = new("First", "Last", "1999/09/01", "boom@boom.com");
 
         Assert.Multiple(() =>
         {
