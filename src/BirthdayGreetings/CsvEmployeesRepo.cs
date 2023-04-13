@@ -5,7 +5,9 @@ public class CsvEmployeesRepo : IEmployeesRepo
     private readonly string _fileName;
 
     public CsvEmployeesRepo(string fileName)
-        => _fileName = fileName;
+    {
+        _fileName = fileName;
+    }
 
     public List<Employee> FindAllEmployees()
     {
