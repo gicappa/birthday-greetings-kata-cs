@@ -5,9 +5,9 @@ namespace BirthdayGreetings;
 /// <summary>
 /// Class <c>BirthdayService</c> contains the whole
 /// business logic mixing several level of abstractions.
-/// It open and read a file, parses its lines, select
+/// It opens and reads a file, it parses its lines, it selects
 /// employees with a birthday today and finally
-/// send an email to them.
+/// it sends them an email.
 /// </summary>
 internal class BirthdayService
 {
