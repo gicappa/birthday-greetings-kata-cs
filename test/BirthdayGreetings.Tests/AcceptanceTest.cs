@@ -39,7 +39,7 @@ public class AcceptanceTest
     public void TearDown() => _smtpServer?.Stop();
 
     [Test]
-    public void WillSendGreetingsWhenItsSomebodysBirthday()
+    public void sends_greetings_when_it_is_somebody_s_birthday()
     {
         _birthdayService.SendGreetings(_xDate);
 
@@ -55,7 +55,7 @@ public class AcceptanceTest
     }
 
     [Test]
-    public void WillNotSendEmailsWhenNobodysBirthday()
+    public void will_not_send_emails_it_when_it_is_nobody_s_birthday()
     {
         _birthdayService.SendGreetings(new XDate("2008/01/01"));
         Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(0), "what? messages?");

@@ -4,7 +4,7 @@ namespace BirthdayGreetings;
 
 class SendBirthdayGreetingsVisitor : IVisitor<Employee>
 {
-    private readonly XDate _today;
+    internal XDate Today { get; set; }
     private readonly IGreetingsFactory _greetingsFactory;
     private readonly SmtpClient _smtpClient;
 
@@ -12,12 +12,12 @@ class SendBirthdayGreetingsVisitor : IVisitor<Employee>
     {
         _greetingsFactory = greetingsFactory;
         _smtpClient = smtpClient;
-        _today = today;
+        Today = today;
     }
 
     void IVisitor<Employee>.Visit(Employee employee)
     {
-        if (employee.IsBirthday(_today))
+        if (employee.IsBirthday(Today))
         {
             SendMessage(
                 from: "sender@here.com",

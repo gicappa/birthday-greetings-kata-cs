@@ -13,6 +13,7 @@ internal class BirthdayService
 
     internal void SendGreetings(XDate date)
     {
+        ((SendBirthdayGreetingsVisitor)_visitor).Today = date;
         _employeesRepo.Load();
 
         for (var index = 0; index < _employeesRepo.Employees.Count; index++)
