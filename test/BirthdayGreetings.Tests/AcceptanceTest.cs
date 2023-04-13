@@ -21,7 +21,9 @@ public class AcceptanceTest
         _smtpServer = SimpleSmtpServer.Start();
         _employeesRepo = new CsvEmployeesRepo(FilePath);
         _smtpClient = new SmtpClient("localhost", _smtpServer!.Configuration.Port);
-        _birthdayService = new BirthdayService(_employeesRepo, _smtpClient);
+        var greetingsFactory = new GreetingsFactory();
+        
+        _birthdayService = new BirthdayService(_employeesRepo, _smtpClient, greetingsFactory);
     }
 
     [TearDown]
