@@ -14,6 +14,12 @@ public class AcceptanceTest
     private IEmployeesRepo _employeesRepo;
     private BirthdayService _birthdayService;
     private SmtpClient _smtpClient;
+    private readonly XDate _xDate;
+
+    public AcceptanceTest()
+    {
+        _xDate = new XDate("2008/10/08");
+    }
 
     [SetUp]
     public void SetUp()
@@ -23,7 +29,10 @@ public class AcceptanceTest
         _smtpClient = new SmtpClient("localhost", _smtpServer!.Configuration.Port);
         var greetingsFactory = new GreetingsFactory();
 
-        _birthdayService = new BirthdayService(_employeesRepo, _smtpClient, greetingsFactory);
+
+        var sendBirthdayGreetingsVisitor = new SendBirthdayGreetingsVisitor(greetingsFactory, _smtpClient, _xDate);
+        
+        _birthdayService = new BirthdayService(_employeesRepo, sendBirthdayGreetingsVisitor);
     }
 
     [TearDown]
@@ -32,7 +41,7 @@ public class AcceptanceTest
     [Test]
     public void WillSendGreetingsWhenItsSomebodysBirthday()
     {
-        _birthdayService.SendGreetings(new XDate("2008/10/08"));
+        _birthdayService.SendGreetings(_xDate);
 
         Assert.That(_smtpServer?.ReceivedEmailCount, Is.EqualTo(1), "message not sent?");
         var message = _smtpServer?.ReceivedEmail[0];

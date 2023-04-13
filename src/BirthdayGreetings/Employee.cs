@@ -1,6 +1,6 @@
 ﻿namespace BirthdayGreetings;
 
-internal class Employee
+internal class Employee : IElement<Employee>
 {
     internal Employee(string firstName, string lastName, string birthDate, string email) :
         this(firstName, lastName, new XDate(birthDate), email)
@@ -38,5 +38,10 @@ internal class Employee
     public override int GetHashCode()
     {
         return Email.GetHashCode();
+    }
+
+    void IElement<Employee>.Accept(IVisitor<Employee> visitor)
+    {
+        visitor.Visit(this);
     }
 }
