@@ -17,9 +17,11 @@ internal class BirthdayService
 
     internal void SendGreetings(XDate date)
     {
-        var employees = _employeesRepo.FindAllEmployees();
-        foreach (var employee in employees)
+        _employeesRepo.Load();
+
+        for (var index = 0; index < _employeesRepo.Employees.Count; index++)
         {
+            var employee = _employeesRepo.Employees[index];
             if (employee.IsBirthday(date))
             {
                 SendMessage(

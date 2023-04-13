@@ -3,41 +3,31 @@ namespace BirthdayGreetings;
 internal class CsvEmployeesRepo : IEmployeesRepo
 {
     private readonly string _fileName;
+    private readonly EmployeeFactory _employeeFactory;
+    private readonly List<Employee> _employees = new();
 
-    internal CsvEmployeesRepo(string fileName)
+    
+    internal CsvEmployeesRepo(string fileName, EmployeeFactory employeeFactory)
     {
         _fileName = fileName;
+        _employeeFactory = employeeFactory;
     }
 
-    List<Employee> IEmployeesRepo.FindAllEmployees()
+    void IEmployeesRepo.Load()
     {
         using StreamReader input = new(_fileName);
         SkipHeader(input);
-        return ReadAllEmployeesFromCsv(input);
+        
+        ReadAllEmployeesFromCsv(input);
     }
 
-    private static List<Employee> ReadAllEmployeesFromCsv(StreamReader input)
+    List<Employee> IEmployeesRepo.Employees => _employees;
+
+    private void ReadAllEmployeesFromCsv(StreamReader input)
     {
-        var employees = new List<Employee>();
-
         while (input.ReadLine() is { } str)
-            employees.Add(ParseEmployee(str));
-
-        return employees;
+            _employees.Add(_employeeFactory.ParseEmployee(str));
     }
 
     private static void SkipHeader(TextReader input) => input.ReadLine();
-
-    private static Employee ParseEmployee(string str)
-    {
-        var employeeData = str.Split(new char[] { ',' }, 1000);
-
-        Employee employee = new(
-            employeeData[1].Trim(),
-            employeeData[0].Trim(),
-            employeeData[2].Trim(),
-            employeeData[3].Trim());
-
-        return employee;
-    }
 }
