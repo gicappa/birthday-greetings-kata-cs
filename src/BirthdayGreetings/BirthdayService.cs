@@ -2,13 +2,6 @@
 
 namespace BirthdayGreetings;
 
-/// <summary>
-/// Class <c>BirthdayService</c> contains the whole
-/// business logic mixing several level of abstractions.
-/// It opens and reads a file, it parses its lines, it selects
-/// employees with a birthday today and finally
-/// it sends them an email.
-/// </summary>
 internal class BirthdayService
 {
     private readonly IEmployeesRepo _employeesRepo;
@@ -36,16 +29,6 @@ internal class BirthdayService
         }
     }
 
-    /// <summary>
-    /// Sends a message to a certain user using a
-    /// specific smtp server.
-    /// </summary>
-    /// <param name="smtpHost"></param>
-    /// <param name="smtpPort"></param>
-    /// <param name="from"></param>
-    /// <param name="subject"></param>
-    /// <param name="body"></param>
-    /// <param name="recipient"></param>
     private static void SendMessage(string smtpHost, int smtpPort, string from, string subject, string body,
         string recipient)
     {
