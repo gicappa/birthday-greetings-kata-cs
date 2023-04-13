@@ -1,6 +1,6 @@
 namespace BirthdayGreetings;
 
-public interface IEmployeesRepo
+internal interface IEmployeesRepo
 {
     List<Employee> FindAllEmployees();
 }

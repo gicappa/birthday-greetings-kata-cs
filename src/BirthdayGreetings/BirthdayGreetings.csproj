@@ -12,4 +12,11 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>BirthdayGreetings.Tests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
 </Project>

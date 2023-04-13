@@ -1,15 +1,15 @@
 namespace BirthdayGreetings;
 
-public class CsvEmployeesRepo : IEmployeesRepo
+internal class CsvEmployeesRepo : IEmployeesRepo
 {
     private readonly string _fileName;
 
-    public CsvEmployeesRepo(string fileName)
+    internal CsvEmployeesRepo(string fileName)
     {
         _fileName = fileName;
     }
 
-    public List<Employee> FindAllEmployees()
+    List<Employee> IEmployeesRepo.FindAllEmployees()
     {
         using StreamReader input = new(_fileName);
         SkipHeader(input);

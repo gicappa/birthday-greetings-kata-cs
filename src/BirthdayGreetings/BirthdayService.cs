@@ -9,16 +9,16 @@ namespace BirthdayGreetings;
 /// employees with a birthday today and finally
 /// send an email to them.
 /// </summary>
-public class BirthdayService
+internal class BirthdayService
 {
     private readonly IEmployeesRepo _employeesRepo;
 
-    public BirthdayService(IEmployeesRepo employeesRepo)
+    internal BirthdayService(IEmployeesRepo employeesRepo)
     {
         _employeesRepo = employeesRepo;
     }
 
-    public void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
+    internal void SendGreetings(string fileName, XDate date, string smtpHost, int smtpPort)
     {
         var employees = _employeesRepo.FindAllEmployees();
         foreach (var employee in employees)
